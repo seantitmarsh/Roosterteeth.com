@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # pylint: disable=W0105,C0325
-"""
+'''
 Created on Tue Aug 08 13:34:06 2017
 
 @author: Sean.Titmarsh
-"""
+'''
 
 import sys
 reload(sys)  # Reload does the trick!
@@ -86,7 +86,7 @@ def submit_comment(submissionId, name, episode, reddit):
     '''
     print('Now Submitting Information Comment for {1} to {0}'.format(SUBREDDIT, name) + '\r')
     description = str(episode['attributes']['description'])
-    process_description = description.split("\r\n\r\n")
+    process_description = description.split('\r\n\r\n')
     safe_description = process_description[0]
     esite = str(episode['attributes']['channel_slug'])
     eshow = str(episode['attributes']['show_title'])
@@ -128,7 +128,7 @@ def get_time(length):
 ROOSTERTEETH.COM API FUNCTIONS
 '''
 def get_episodes():
-    request = urllib2.Request("https://svod-be.roosterteeth.com/api/v1/episodes", headers={"User-Agent" : "Video Bot for reddit.com/r/roosterteeth, contact s.titmarshs@gmail.com"})
+    request = urllib2.Request('https://svod-be.roosterteeth.com/api/v1/episodes', headers={'User-Agent' : '')
     page = urllib2.urlopen(request).read()
     info = json.loads(page)
     return info['data']
@@ -195,7 +195,7 @@ def run_bot():
         print('\r')
         print('Now running episode ' + str(count - 1) + '\r')
         e_title = str(new_episode['attributes']['title'])
-        episode_title = e_title.replace("’", "'").replace("…", "...")
+        episode_title = e_title.replace("’", "'").replace('…', '...')
         print('Video Title: "' + episode_title + '"\r')
         video_site = str(new_episode['attributes']['channel_slug'])
         print('Site: ' + video_site + '\r')
@@ -216,10 +216,10 @@ def run_bot():
             print('Episode Link: ' + episode_link + '\r')
             print('FIRST Exclusive?: ' + first_only + '\r')
             print('FIRST Early?: ' + first_early + '\r')
-            if first_only == "True" or first_early =="True":
-                if first_only == "True":
+            if first_only == 'True' or first_early =='True':
+                if first_only == 'True':
                     print('\rVideo is a First Exclusive Series, starting submission\r')
-                elif first_early == "True":
+                elif first_early == 'True':
                     print('\rVideo is a First Early Series, starting submission\r')
                 submissionId = str(submit_video(SUBREDDIT, full_title, episode_link, reddit))
                 print('Reddit Thread ID: ' + submissionId + '\r')
